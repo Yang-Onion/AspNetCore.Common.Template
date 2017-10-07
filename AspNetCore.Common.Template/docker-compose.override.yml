@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  aspnetcore.common.template:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+networks:
+  default:
+    external:
+      name: nat

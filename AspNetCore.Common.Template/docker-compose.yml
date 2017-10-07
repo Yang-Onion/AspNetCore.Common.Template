@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  aspnetcore.common.template:
+    image: aspnetcore.common.template
+    build:
+      context: ./AspNetCore.Common.Template
+      dockerfile: Dockerfile
