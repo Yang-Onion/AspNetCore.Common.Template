@@ -1,9 +1,9 @@
+using AspNetCore.Common.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using AspNetCore.Common.Template.Services;
 
 namespace AspNetCore.Common.Web.Extensions
 {

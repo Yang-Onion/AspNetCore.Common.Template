@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AspNetCore.Common.Models.Identity;
 
-namespace Cms.Service.Identity.Impl
+namespace AspNetCore.Common.Services.Identity.Impl
 {
     public class SignInManager : SignInManager<AppUser>
     {

@@ -4,44 +4,24 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AspNetCore.Common.Template
+namespace AspNetCore.Common.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = CommonConfigurationBuilder.Build(env);
+            CurrentEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<IdentityDbContext>();
-
-            //services.AddIdentity<AppUser,IdentityRole>(option=> {
-            //    option.Password.RequireUppercase = false;
-            //    option.Password.RequireDigit = false;
-            //    option.Password.RequireLowercase = false;
-            //    option.Password.RequireNonAlphanumeric = false;
-
-            //})
-            //.AddEntityFrameworkStores<IdentityDbContext>()
-            //.AddDefaultTokenProviders();
-
-            //services.AddMvc()
-            //    .AddRazorPagesOptions(options =>
-            //    {
-            //        options.Conventions.AuthorizeFolder("/Account/Manage");
-            //        options.Conventions.AuthorizePage("/Account/Logout");
-            //    });
-
-            //// Register no-op EmailSender used by account confirmation and password reset during development
-            //// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-            //services.AddSingleton<IEmailSender, EmailSender>();
-
-            services.AddConfiguration(Configuration)
+            services
+                    .AddConfiguration(Configuration)
                     .AddCommonDbContext()
                     .AddCommonDataProtection()
                     .AddCommonIdentity()
@@ -50,8 +30,6 @@ namespace AspNetCore.Common.Template
                     .AddCommonCoreMvc();
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

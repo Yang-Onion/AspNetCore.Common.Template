@@ -27,7 +27,7 @@ namespace AlpineSkiHouse.Web.Models.AccountViewModels
         [Required]
         [MaxLength(30)]
         [Display(Name = "姓名")]
-        public string UserName { get; set; }
+        public string RealName { get; set; }
 
         [Phone]
         [Display(Name = "手机号码")]

@@ -11,6 +11,8 @@ namespace AspNetCore.Common.Models.Identity
         /// 用户排序
         /// </summary>
         public int UserOrder { get; set; }
+        public string RealName { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; } = new List<IdentityUserRole<string>>();
     }
 }

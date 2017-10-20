@@ -19,11 +19,11 @@ namespace AspNetCore.Common.Infrastructure.Export.Formaters
                 var buildHeader = false;
                 foreach (var entity in entities) {
                     if (!buildHeader && HasHeader) {
-                        sb.Append(string.Join((string)",", (IEnumerable<string>)entity.Select(g => g.Header)));
+                        sb.Append(string.Join(",", (IEnumerable<string>)entity.Select(g => g.Header)));
                         buildHeader = true;
                         sb.AppendLine();
                     }
-                    sb.Append(string.Join((string)",", (IEnumerable<string>)entity.Select(g => g.Value)));
+                    sb.Append(string.Join(",", (IEnumerable<string>)entity.Select(g => g.Value)));
                     sb.AppendLine();
                 }
             }

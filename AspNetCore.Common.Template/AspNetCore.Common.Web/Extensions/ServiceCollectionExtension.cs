@@ -1,7 +1,11 @@
 ﻿using AspNetCore.Common.Infrastructure;
+using AspNetCore.Common.Infrastructure.Web;
 using AspNetCore.Common.Models.Identity;
+using AspNetCore.Common.Services.Identity.Impl;
 using AspNetCore.Common.Template.Data;
-using Cms.Service.Identity.Impl;
+using AspNetCore.Common.Web.Conventions;
+using AspNetCore.Common.Web.Providers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -10,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 
 namespace AspNetCore.Common.Web.Extensions
 {
@@ -17,7 +22,8 @@ namespace AspNetCore.Common.Web.Extensions
     {
         public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddConfiguration(configuration);
+            //return services.AddConfiguration(configuration);
+            return services.AddApplicationInsightsTelemetry(configuration);
         }
 
         public static IServiceCollection AddCommonDbContext(this IServiceCollection services)
@@ -38,6 +44,7 @@ namespace AspNetCore.Common.Web.Extensions
 
         public static IServiceCollection AddCommonIdentity(this IServiceCollection services)
         {
+            services.AddScoped<OpenIdOAuthProvider>();
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -49,10 +56,21 @@ namespace AspNetCore.Common.Web.Extensions
             {
                 option.LoginPath = "/Account/Login";
                 option.AccessDeniedPath = "/Error/AccessDenied";
-                option.Events = new Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents()
+                option.Events = new CookieAuthenticationEvents()
                 {
                     OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync
                 };
+            })
+            //第三方平台调用当前平台时需要验证 
+            .AddOAuthValidation()
+            .AddOpenIdConnectServer(options =>
+            {
+                options.AllowInsecureHttp = true;
+                options.TokenEndpointPath = "/oauth/token";
+                options.LogoutEndpointPath = "/oauth/logout";
+                options.ApplicationCanDisplayErrors = true;
+                options.AccessTokenLifetime = TimeSpan.FromDays(1);
+                options.ProviderType = typeof(OpenIdOAuthProvider);
             });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -72,6 +90,9 @@ namespace AspNetCore.Common.Web.Extensions
             });
             services.TryAddScoped<ISecurityStampValidator, SecurityStampValidator<AppUser>>();
 
+            services.TryAddScoped<UserManager<AppUser>, AppUserManager>();
+            services.TryAddScoped<SignInManager<AppUser>, SignInManager>();
+            services.TryAddScoped<RoleManager<AppRole>, AppRoleManager>();
 
             new IdentityBuilder(typeof(AppUser), typeof(AppRole), services)
                 .AddEntityFrameworkStores<IdentityDbContext>()
@@ -107,29 +128,34 @@ namespace AspNetCore.Common.Web.Extensions
             {
                 options.AddPolicy("aspnetcore.common", builder =>
                 {
-                    builder.WithOrigins("")
+                    builder.WithOrigins("https://localhost:44329")
                     .AllowAnyHeader();
                 });
             });
 
             services.Configure<FormOptions>(x => x.MultipartBodyLengthLimit = 1024 * 1024 * 3);
-            services.AddMvc(confing =>
+            services.AddMvc(options =>
             {
-                confing.CacheProfiles.Add("Default",
+                options.CacheProfiles.Add("Default",
                     new CacheProfile
                     {
-                        Duration=3000,
-                        Location=Microsoft.AspNetCore.Mvc.ResponseCacheLocation.Any
+                        Duration = 3000,
+                        Location = ResponseCacheLocation.Any
                     });
-                confing.CacheProfiles.Add("Never",
+                options.CacheProfiles.Add("Never",
 
                     new CacheProfile()
                     {
-                        Location = Microsoft.AspNetCore.Mvc.ResponseCacheLocation.None,
+                        Location = ResponseCacheLocation.None,
                         NoStore = true
                     });
-                //confing.Filters.Add();
-            }).AddJsonOptions(x=>x.SerializerSettings.DateFormatString="yyyy-HH-dd HH:mm");
+                options.Conventions.Add(new AutoValidateAntiForgeryTokenModelConvention());
+                options.Filters.Add(new MvcActionFilter());
+            })
+            .AddJsonOptions(x => x.SerializerSettings.DateFormatString = "yyyy-HH-dd HH:mm")
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization();
+
             return services;
         }
     }

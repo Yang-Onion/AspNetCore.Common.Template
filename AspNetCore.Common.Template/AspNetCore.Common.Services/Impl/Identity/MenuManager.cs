@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace Cms.Service.Identity.Impl
+namespace AspNetCore.Common.Services.Identity.Impl
 {
     public class MenuManager
     {

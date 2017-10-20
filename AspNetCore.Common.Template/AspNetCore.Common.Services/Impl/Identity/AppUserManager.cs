@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cms.Service.Identity.Impl
+namespace AspNetCore.Common.Services.Identity.Impl
 {
     public class AppUserManager : UserManager<AppUser>
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Cms.Service.Identity.Impl
+namespace AspNetCore.Common.Services.Identity.Impl
 {
     public class AppRoleManager : RoleManager<AppRole>
     {

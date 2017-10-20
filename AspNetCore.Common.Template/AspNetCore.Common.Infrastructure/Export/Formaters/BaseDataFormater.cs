@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using AspNetCore.Common.Infrastructure.Export.Attributes;
 using AspNetCore.Common.Infrastructure.Export.Enumerators;
 using AspNetCore.Common.Infrastructure.Export.Filters;
-using AspNetCore.Common.Infrastructure.Export.Attributes;
+using System.Collections.Generic;
 
 namespace AspNetCore.Common.Infrastructure.Export.Formaters
 {
