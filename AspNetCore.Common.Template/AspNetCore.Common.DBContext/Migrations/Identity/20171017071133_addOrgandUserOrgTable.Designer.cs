@@ -11,9 +11,10 @@ using System;
 namespace AspNetCore.Common.DBContext.Migrations.Identity
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171017071133_addOrgandUserOrgTable")]
+    partial class addOrgandUserOrgTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
