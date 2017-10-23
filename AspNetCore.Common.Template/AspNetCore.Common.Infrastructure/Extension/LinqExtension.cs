@@ -1,6 +1,4 @@
-﻿// 作者： 杨晓东 用途： Linq 扩展方法
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Reflection;

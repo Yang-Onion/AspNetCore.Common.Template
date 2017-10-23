@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using AspNetCore.Common.Infrastructure.Extension;
+using AspNetCore.Common.Services;
 
 namespace AspNetCore.Common.Web.Extensions
 {
@@ -118,7 +120,7 @@ namespace AspNetCore.Common.Web.Extensions
 
         public static IServiceCollection AddCommonServices(this IServiceCollection services)
         {
-            //services.AddSingleton<iterface,impl>();
+            services.AddUnitOfWork().AddService();
             return services;
         }
 

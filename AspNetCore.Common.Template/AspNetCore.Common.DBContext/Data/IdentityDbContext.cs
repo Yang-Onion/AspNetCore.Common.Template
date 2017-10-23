@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using AspNetCore.Common.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using AspNetCore.Common.DBContext.Interface;
 
 namespace AspNetCore.Common.Template.Data
 {
-    public class IdentityDbContext : IdentityDbContext<AppUser>
+    public class IdentityDbContext : IdentityDbContext<AppUser>, IIdentityDbContext
     {
         public readonly IConfiguration _configuration;
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options,IConfiguration configuration)
@@ -18,7 +19,6 @@ namespace AspNetCore.Common.Template.Data
         {
             _configuration = configuration;
         }
-
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<UserOrganizations> UserOrganizations { get; set; }
@@ -49,11 +49,31 @@ namespace AspNetCore.Common.Template.Data
             builder.Entity<Organization>().ToTable("organization");
             builder.Entity<UserOrganizations>().ToTable("userorganizations");
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(_configuration.GetConnectionString("IdentityDbConnection"));
+            var connectString = _configuration.GetConnectionString("IdentityDbConnection");
+            optionsBuilder.UseMySql(connectString);
             base.OnConfiguring(optionsBuilder);
+        }
+
+        public int Commit()
+        {
+            return SaveChanges();
+        }
+
+        public Task<int> CommitAsync()
+        {
+            return SaveChangesAsync();
+        }
+
+        public IList<T> Sql<T>(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T ExecuteScalar<T>(string sql)
+        {
+            throw new NotImplementedException();
         }
     }
 }

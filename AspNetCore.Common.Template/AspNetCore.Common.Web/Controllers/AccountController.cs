@@ -14,6 +14,7 @@ using AspNetCore.Common.Infrastructure.Web;
 using Microsoft.Extensions.Caching.Distributed;
 using AspNetCore.Common.Services.Interface;
 using AspNetCore.Common.Infrastructure.Extension;
+using AspNetCore.Common.Services.Identity.Impl;
 
 namespace AspNetCore.Common.Web.Controllers
 {
@@ -21,12 +22,12 @@ namespace AspNetCore.Common.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager _signInManager;
+        private readonly AppUserManager _userManager;
         private readonly ILogger _logger;
         public  readonly IDistributedCache _cache;
         private readonly ISmsSender _smsSender;
-        public AccountController(SignInManager<AppUser> signInManager, ILogger<AccountController> logger, UserManager<AppUser> userManager,IDistributedCache cache, ISmsSender smsSender)
+        public AccountController(SignInManager signInManager, ILogger<AccountController> logger, AppUserManager userManager,IDistributedCache cache, ISmsSender smsSender)
         {
             _signInManager = signInManager;
             _logger = logger;

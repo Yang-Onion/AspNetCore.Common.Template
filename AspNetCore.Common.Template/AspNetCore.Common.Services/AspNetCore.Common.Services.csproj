@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCore.Common.Infrastructure\AspNetCore.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Models\AspNetCore.Common.Models.csproj" />
   </ItemGroup>
 

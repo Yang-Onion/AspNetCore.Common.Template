@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCore.Common.Infrastructure\AspNetCore.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Models\AspNetCore.Common.Models.csproj" />
   </ItemGroup>
   
