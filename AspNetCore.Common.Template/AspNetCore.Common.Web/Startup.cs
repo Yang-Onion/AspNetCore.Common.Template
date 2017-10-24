@@ -46,7 +46,6 @@ namespace AspNetCore.Common.Web
                 app.UseExceptionHandler("/Error");
             }
             loggerFactory.AddNLog();
-            app.AddNLogWeb();
 
             app.UseStaticFiles();
 

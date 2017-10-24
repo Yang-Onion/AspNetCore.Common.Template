@@ -15,37 +15,22 @@ namespace AspNetCore.Common.Web
     {
         public static void Main(string[] args)
         {
-            //var config = new ConfigurationBuilder()
-            //            .AddCommandLine(args)
-            //            .AddJsonFile("hosting.json", optional: true)
-            //            .AddEnvironmentVariables("ASPNETCORE_")
-            //            .Build();
-
-            //var host = new WebHostBuilder()
-            //    .UseConfiguration(config)
-            //    .UseKestrel()
-            //    .UseContentRoot(Directory.GetCurrentDirectory())
-            //    .UseIISIntegration()
-            //    .UseStartup<Startup>()
-            //    .Build();
-
-            //host.Run();
-
-            BuildWebHost(args).Run();
-        }
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            var config = new ConfigurationBuilder().AddCommandLine(args).Build();
-
-            return WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, builder) =>
-                {
-                    hostingContext.HostingEnvironment.ConfigureNLog("nlog.config");
-                })
+            var config = new ConfigurationBuilder()
+                        .AddCommandLine(args)
+                        .AddJsonFile("hosting.json", optional: true)
+                        .AddEnvironmentVariables("ASPNETCORE_")
+                        .Build();
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var host = new WebHostBuilder()
                 .UseConfiguration(config)
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseNLog()
                 .Build();
-        }
 
+            host.Run();
+        }
     }
 }
