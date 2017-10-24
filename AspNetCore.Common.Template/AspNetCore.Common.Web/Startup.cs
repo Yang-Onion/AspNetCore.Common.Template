@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace AspNetCore.Common.Web
 {
@@ -30,7 +33,7 @@ namespace AspNetCore.Common.Web
                     .AddCommonCoreMvc();
 
         }
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -42,6 +45,8 @@ namespace AspNetCore.Common.Web
             {
                 app.UseExceptionHandler("/Error");
             }
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
 
             app.UseStaticFiles();
 
