@@ -4,6 +4,9 @@
     <UserSecretsId>aspnet-AspNetCore.Common.Web-EB06EBB2-A1C1-41D8-990A-C3E91547760D</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Extensions\DesignTimeDbContextFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0-rc1-final" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc1-final" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
@@ -18,7 +21,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AspNetCore.Common.DBContext\AspNetCore.Common.DBContext.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Infrastructure\AspNetCore.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Models\AspNetCore.Common.Models.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Services\AspNetCore.Common.Services.csproj" />

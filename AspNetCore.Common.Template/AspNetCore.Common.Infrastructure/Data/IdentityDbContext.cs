@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using AspNetCore.Common.Infrastructure.Interface;
 using AspNetCore.Common.Models.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using AspNetCore.Common.DBContext.Interface;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace AspNetCore.Common.DBContext.Data
+namespace AspNetCore.Common.Infrastructure.Data
 {
     public class IdentityDbContext : IdentityDbContext<AppUser>, IIdentityDbContext
     {

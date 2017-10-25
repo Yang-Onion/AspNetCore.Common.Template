@@ -1,8 +1,10 @@
 ﻿using AspNetCore.Common.Infrastructure;
+using AspNetCore.Common.Infrastructure.Data;
+using AspNetCore.Common.Infrastructure.Extension;
 using AspNetCore.Common.Infrastructure.Web;
 using AspNetCore.Common.Models.Identity;
+using AspNetCore.Common.Services;
 using AspNetCore.Common.Services.Identity.Impl;
-using AspNetCore.Common.Template.Data;
 using AspNetCore.Common.Web.Conventions;
 using AspNetCore.Common.Web.Providers;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,8 +17,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using AspNetCore.Common.Infrastructure.Extension;
-using AspNetCore.Common.Services;
 
 namespace AspNetCore.Common.Web.Extensions
 {
@@ -24,8 +24,8 @@ namespace AspNetCore.Common.Web.Extensions
     {
         public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            //return services.AddConfiguration(configuration);
-            return services.AddApplicationInsightsTelemetry(configuration);
+            return services.AddConfiguration(configuration);
+            //return services.AddApplicationInsightsTelemetry(configuration);
         }
 
         public static IServiceCollection AddCommonDbContext(this IServiceCollection services)
