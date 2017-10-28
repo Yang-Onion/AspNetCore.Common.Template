@@ -11,21 +11,19 @@ namespace AspNetCore.Common.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Configuration = CommonConfigurationBuilder.Build(env);
-            CurrentEnvironment = env;
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
                     .AddConfiguration(Configuration)
-                    .AddCommonDbContext()
+                    .AddCommonDbContext(Configuration)
                     .AddCommonDataProtection()
                     .AddCommonIdentity()
                     .AddCommonMemory(Configuration)

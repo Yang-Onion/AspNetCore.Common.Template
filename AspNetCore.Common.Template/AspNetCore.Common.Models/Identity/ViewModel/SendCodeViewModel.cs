@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AlpineSkiHouse.Web.Models.AccountViewModels
+namespace AspNetCore.Common.Models.Identity.ViewModel
 {
     public class SendCodeViewModel
     {

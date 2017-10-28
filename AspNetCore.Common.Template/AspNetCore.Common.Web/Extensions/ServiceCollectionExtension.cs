@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -24,16 +25,15 @@ namespace AspNetCore.Common.Web.Extensions
     {
         public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddConfiguration(configuration);
-            //return services.AddApplicationInsightsTelemetry(configuration);
+            return services.AddSingleton(configuration);
         }
 
-        public static IServiceCollection AddCommonDbContext(this IServiceCollection services)
+        public static IServiceCollection AddCommonDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddDbContext<IdentityDbContext>()
-                 //添加业务数据库         
-                //.AddDbContext<>()
-                ;
+                            //添加业务库
+                            //.AddDbContext<>()
+                   ;
         }
 
         public static IServiceCollection AddCommonDataProtection(this IServiceCollection services)
@@ -107,15 +107,13 @@ namespace AspNetCore.Common.Web.Extensions
 
         public static IServiceCollection AddCommonMemory(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddDistributedRedisCache(option =>
-            //{
-            //    option.Configuration = configuration.GetConnectionString("RedisConnection");
-            //    option.InstanceName = "master";
-            //});
-            //return services;
-            services.AddMemoryCache();
-            services.AddDistributedMemoryCache();
-            return services;
+            //注入redis分布式缓存
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = configuration.GetConnectionString("RedisConnection");
+                option.InstanceName = "master";
+            });
+            return services.AddMemoryCache();
         }
 
         public static IServiceCollection AddCommonServices(this IServiceCollection services)

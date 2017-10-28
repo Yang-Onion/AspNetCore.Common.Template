@@ -1,63 +1,114 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    Layout = "";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link href="~/css/ionicons.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/css/AdminLTE.css" rel="stylesheet" />
+    <!-- iCheck -->
+    <link href="~/css/skins/skin-blue.css" rel="stylesheet" />
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="../../index2.html"><b>Admin</b>LTE</a>
+        </div>
+        <div class="register-box-body">
+            <p class="login-box-msg">注册</p>
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div class="form-group has-feedback">
+                    <input asp-for="UserName" class="form-field form-control" placeholder="请输入用户名(支持邮箱、手机号)" />
+                    <label asp-for="UserName" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input asp-for="Password" class="form-field form-control" placeholder="请输入密码" />
+                    <label asp-for="Password" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input asp-for="ConfirmPassword" class="form-field form-control" placeholder="请输入确认密码" />
+                    <label asp-for="ConfirmPassword" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input asp-for="PhoneNumber" class="form-field form-control" placeholder="请输入手机号码" />
+                    <label asp-for="PhoneNumber" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group has-feedback">
+                    <input asp-for="ValidateCode" class="form-field form-control" autocomplete="off"  placeholder="请输入验证码" />
+                    <img data-src="/Account/GetSecurityCode" id="security_code" src="/Account/GetSecurityCode" class="btn-phoneCode" alt="验证码" />
+                    <label asp-for="ValidateCode" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="ValidateCode" class="text-danger"></span>
+                    
+                </div>
 
-<h2>@ViewData["Title"].</h2>
-
-<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
-    <hr />
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="form-group has-feedback">
+                    <input asp-for="RealName" class="form-field form-control" placeholder="请输入真实姓名(选填)" />
+                    <label asp-for="RealName" class="form-label">
+                        <i class="iconfont-user"></i>
+                    </label>
+                    <span asp-validation-for="RealName" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox"> 我同意 <a href="#">条款</a>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            已有账户？前往<a  asp-action="Login" asp-controller="Account" class="text-center">登录</a>
         </div>
+        <!-- /.form-box -->
     </div>
-    <div class="form-group">
-        <label asp-for="FirstName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="LastName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="PhoneNumber" class="form-control" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
-        </div>
-    </div>
-</form>
-
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
+    <!-- /.register-box -->
+    <!-- jQuery 3 -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="~/js/adminlte/icheck.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>
+</html>

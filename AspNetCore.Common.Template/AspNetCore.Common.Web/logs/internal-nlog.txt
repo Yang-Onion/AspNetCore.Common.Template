@@ -3,3 +3,43 @@
    at MailKit.Net.Smtp.SmtpClient.Send(FormatOptions options, MimeMessage message, MailboxAddress sender, IList`1 recipients, CancellationToken cancellationToken, ITransferProgress progress)
    at MailKit.Net.Smtp.SmtpClient.Send(FormatOptions options, MimeMessage message, CancellationToken cancellationToken, ITransferProgress progress)
    at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 15:59:39.7638 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 15:59:40.4485 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:14:59.7868 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:15:00.3712 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:29:20.2699 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:29:20.8895 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:29:21.5062 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:29:22.1932 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:44:03.3668 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)
+2017-10-28 16:44:04.1295 Error Error sending mail. Exception: MailKit.Security.AuthenticationException: AuthenticationInvalidCredentials: Error: authentication failed
+   at MailKit.Net.Smtp.SmtpClient.Authenticate(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at MailKit.MailService.Authenticate(String userName, String password, CancellationToken cancellationToken)
+   at NLog.MailKit.MailTarget.ProcessSingleMailMessage(IList`1 events)

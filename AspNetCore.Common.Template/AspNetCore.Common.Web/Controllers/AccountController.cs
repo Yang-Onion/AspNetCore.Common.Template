@@ -1,20 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AspNetCore.Common.Infrastructure.Extension;
+using AspNetCore.Common.Infrastructure.Web;
+using AspNetCore.Common.Models.Identity;
+using AspNetCore.Common.Models.Identity.ViewModel;
+using AspNetCore.Common.Services.Identity.Impl;
+using AspNetCore.Common.Services.Interface;
+using AspNetCore.Common.Web.Providers;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using AspNetCore.Common.Models.Identity;
-using Microsoft.AspNetCore.Authorization;
-using AspNetCore.Common.Models.Identity.ViewModel;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using AlpineSkiHouse.Web.Models.AccountViewModels;
-using AspNetCore.Common.Infrastructure.Web;
 using Microsoft.Extensions.Caching.Distributed;
-using AspNetCore.Common.Services.Interface;
-using AspNetCore.Common.Infrastructure.Extension;
-using AspNetCore.Common.Services.Identity.Impl;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace AspNetCore.Common.Web.Controllers
 {
@@ -82,8 +81,13 @@ namespace AspNetCore.Common.Web.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register([FromServices]IAntiforgery antiforgery , string returnUrl = null)
         {
+            //·ÀÖ¹CSRF¿çÕ¾µ÷ÓÃ
+            var tokens = antiforgery.GetAndStoreTokens(HttpContext);
+            HttpContext.Response.Cookies.Append("RequestVerificationToken", tokens.RequestToken,
+                new CookieOptions { HttpOnly = false });
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -103,7 +107,6 @@ namespace AspNetCore.Common.Web.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
-                    RealName=model.RealName
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -264,6 +267,19 @@ namespace AspNetCore.Common.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public FileResult GetSecurityCode()
+        {
+            var code = SecurityCodeHelper.GeneralRandomCode(6);
+            var bytes = SecurityCodeHelper.GeneralSecurityCode(code);
+
+            if (HttpContext.Request.Cookies.TryGetValue("RequestVerificationToken", out var token))
+                _cache.SetString(token, code);
+            else
+                throw new InvalidOperationException();
+            return File(bytes, "image/png");
+        }
         #endregion
     }
 }

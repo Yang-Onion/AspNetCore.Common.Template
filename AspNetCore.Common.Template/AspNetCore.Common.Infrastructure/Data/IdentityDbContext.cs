@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCore.Common.Infrastructure.Data
 {
-    public class IdentityDbContext : IdentityDbContext<AppUser>, IIdentityDbContext
+    public class IdentityDbContext : IdentityDbContext<AppUser,AppRole,string>, IIdentityDbContext,IUnitOfWork
     {
         public readonly IConfiguration _config;
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options,IConfiguration configuration)
@@ -19,10 +19,7 @@ namespace AspNetCore.Common.Infrastructure.Data
         {
             _config = configuration;
         }
-
-        public IdentityDbContext(DbContextOptions options) : base(options)
-        {
-        }
+  
 
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Organization> Organizations { get; set; }
@@ -30,12 +27,7 @@ namespace AspNetCore.Common.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connString = _config.GetConnectionString("IdentityDbConnection");
-            if (string.IsNullOrEmpty(connString))
-            {
-                connString = "Server=localhost;database=common.Identity;uid=test;pwd=test;";
-            }
-            optionsBuilder.UseMySql(connString);
+            optionsBuilder.UseMySql(_config.GetConnectionString("IdentityDbConnection"));
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -86,16 +78,5 @@ namespace AspNetCore.Common.Infrastructure.Data
         {
             throw new NotImplementedException();
         }
-
-        //public class IdentityDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
-        //{
-        //    public IdentityDbContext CreateDbContext(string[] args)
-        //    {
-        //        var builder = new DbContextOptionsBuilder<IdentityDbContext>();
-        //        builder.UseMySql("Server=localhost;database=common.Identity;uid=test;pwd=test;");
-        //        return new IdentityDbContext(builder.Options);
-        //    }
-        //}
-
     }
 }

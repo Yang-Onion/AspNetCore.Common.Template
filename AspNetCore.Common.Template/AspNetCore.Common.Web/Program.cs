@@ -15,22 +15,24 @@ namespace AspNetCore.Common.Web
     {
         public static void Main(string[] args)
         {
+            BuildWebHost(args).Run();
+        }
+
+        public static IWebHost BuildWebHost(string[] args)
+        {
             var config = new ConfigurationBuilder()
                         .AddCommandLine(args)
                         .AddJsonFile("hosting.json", optional: true)
-                        .AddEnvironmentVariables("ASPNETCORE_")
                         .Build();
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            var host = new WebHostBuilder()
-                .UseConfiguration(config)
+            return WebHost.CreateDefaultBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
+                .UseConfiguration(config)
                 .UseStartup<Startup>()
                 .UseNLog()
                 .Build();
-
-            host.Run();
         }
     }
 }

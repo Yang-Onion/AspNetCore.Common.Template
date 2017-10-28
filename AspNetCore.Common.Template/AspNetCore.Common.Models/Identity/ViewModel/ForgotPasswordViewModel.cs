@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AlpineSkiHouse.Web.Models.AccountViewModels
+namespace AspNetCore.Common.Models.Identity.ViewModel
 {
     public class ForgotPasswordViewModel
     {
