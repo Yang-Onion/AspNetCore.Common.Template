@@ -28,16 +28,16 @@ namespace AspNetCore.Common.Infrastructure.Data
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<UserOrganizations> UserOrganizations { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    string connString =_config.GetConnectionString("IdentityDbConnection");
-        //    if (string.IsNullOrEmpty(connString))
-        //    {
-        //        connString = "Server=localhost;database=common.Identity;uid=test;pwd=test;";
-        //    }
-        //    optionsBuilder.UseMySql(connString);
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connString = _config.GetConnectionString("IdentityDbConnection");
+            if (string.IsNullOrEmpty(connString))
+            {
+                connString = "Server=localhost;database=common.Identity;uid=test;pwd=test;";
+            }
+            optionsBuilder.UseMySql(connString);
+            base.OnConfiguring(optionsBuilder);
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -64,6 +64,7 @@ namespace AspNetCore.Common.Infrastructure.Data
             builder.Entity<Menu>().ToTable("menus");
             builder.Entity<Organization>().ToTable("organization");
             builder.Entity<UserOrganizations>().ToTable("userorganizations");
+            
         }
 
         public int Commit()
@@ -86,15 +87,15 @@ namespace AspNetCore.Common.Infrastructure.Data
             throw new NotImplementedException();
         }
 
-        public class IdentityDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
-        {
-            public IdentityDbContext CreateDbContext(string[] args)
-            {
-                var builder = new DbContextOptionsBuilder<IdentityDbContext>();
-                builder.UseMySql("Server=localhost;database=common.Identity;uid=test;pwd=test;");
-                return new IdentityDbContext(builder.Options);
-            }
-        }
+        //public class IdentityDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
+        //{
+        //    public IdentityDbContext CreateDbContext(string[] args)
+        //    {
+        //        var builder = new DbContextOptionsBuilder<IdentityDbContext>();
+        //        builder.UseMySql("Server=localhost;database=common.Identity;uid=test;pwd=test;");
+        //        return new IdentityDbContext(builder.Options);
+        //    }
+        //}
 
     }
 }
