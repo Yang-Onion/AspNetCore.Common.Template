@@ -16,6 +16,7 @@ namespace AspNetCore.Common.Web
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            FluentScheduler.JobManager.StopAndBlock();
         }
 
         public static IWebHost BuildWebHost(string[] args)
@@ -30,6 +31,7 @@ namespace AspNetCore.Common.Web
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseConfiguration(config)
+                .UseEnvironment("Development")
                 .UseStartup<Startup>()
                 .UseNLog()
                 .Build();

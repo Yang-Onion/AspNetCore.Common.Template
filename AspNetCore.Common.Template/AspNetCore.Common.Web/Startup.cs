@@ -1,3 +1,4 @@
+using AspNetCore.Common.Services.Jobs;
 using AspNetCore.Common.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +56,7 @@ namespace AspNetCore.Common.Web
                     name: "default",
                     template: "{controller=Account}/{action=Login}/{id?}");
             });
+            app.UseJob();
         }
     }
 }
