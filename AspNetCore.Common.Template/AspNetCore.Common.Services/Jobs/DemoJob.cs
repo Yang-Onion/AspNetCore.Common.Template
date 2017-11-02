@@ -25,10 +25,10 @@ namespace AspNetCore.Common.Services.Jobs
                 //同样可以拿到其他接口的实例
                 var dbcontext = provider.GetRequiredService<IdentityDbContext>();
 
-                dbcontext.Menus.Add(new Models.Identity.Menu
-                {
+                //dbcontext.Menus.Add(new Models.Identity.Menu
+                //{
 
-                });
+                //});
                 
             }
         }
