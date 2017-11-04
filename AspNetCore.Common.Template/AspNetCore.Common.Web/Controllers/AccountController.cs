@@ -104,8 +104,8 @@ namespace AspNetCore.Common.Web.Controllers
             {
                 var user = new AppUser
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
+                    UserName = model.UserName,
+                    Email = model.UserName,
                     PhoneNumber = model.PhoneNumber,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -263,7 +263,7 @@ namespace AspNetCore.Common.Web.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index),nameof(HomeController));
+                return RedirectToAction(nameof(HomeController.Index),"Home");
             }
         }
 
