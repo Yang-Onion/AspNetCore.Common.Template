@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AspNetCore.Common.Infrastructure\AspNetCore.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Models\AspNetCore.Common.Models.csproj" />
+    <ProjectReference Include="..\AspNetCore.Common.Rest\AspNetCore.Common.Rest.csproj" />
     <ProjectReference Include="..\AspNetCore.Common.Services\AspNetCore.Common.Services.csproj" />
   </ItemGroup>
   <ItemGroup>

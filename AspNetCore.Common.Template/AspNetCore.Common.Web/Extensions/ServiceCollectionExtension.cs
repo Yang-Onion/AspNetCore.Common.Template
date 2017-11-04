@@ -118,7 +118,7 @@ namespace AspNetCore.Common.Web.Extensions
 
         public static IServiceCollection AddCommonServices(this IServiceCollection services)
         {
-            services.AddUnitOfWork().AddService();
+            services.AddUnitOfWork().AddService().AddJobService();
             return services;
         }
 
