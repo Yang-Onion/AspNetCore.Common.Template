@@ -11,7 +11,9 @@ namespace AspNetCore.Common.Jobs
         public static IApplicationBuilder UseHangfire(this IApplicationBuilder app)
         {
             app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire",new DashboardOptions() {
+                Authorization=new[] {new AdminAuthorizeFilter()}
+            });
             return app;
         }
 

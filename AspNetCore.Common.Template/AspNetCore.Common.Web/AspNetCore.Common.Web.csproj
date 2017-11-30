@@ -4,6 +4,7 @@
     <UserSecretsId>aspnet-AspNetCore.Common.Web-EB06EBB2-A1C1-41D8-990A-C3E91547760D</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="CommonConfigurationBuilder.cs" />
     <Compile Remove="Extensions\DesignTimeDbContextFactory.cs" />
   </ItemGroup>
   <ItemGroup>
