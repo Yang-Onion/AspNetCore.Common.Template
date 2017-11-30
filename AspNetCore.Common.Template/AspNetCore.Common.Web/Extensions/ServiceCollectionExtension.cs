@@ -7,6 +7,9 @@ using AspNetCore.Common.Services;
 using AspNetCore.Common.Services.Identity.Impl;
 using AspNetCore.Common.Web.Conventions;
 using AspNetCore.Common.Web.Providers;
+using Hangfire;
+using Hangfire.MySql;
+using Hangfire.MySql.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
@@ -156,6 +159,12 @@ namespace AspNetCore.Common.Web.Extensions
             .AddViewLocalization()
             .AddDataAnnotationsLocalization();
 
+            return services;
+        }
+
+        public static IServiceCollection AddCommonJobs(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.AddHangfire(x => x.UseStorage(new MySqlStorage(configuration.GetConnectionString("HangfireConnection"))));
             return services;
         }
     }

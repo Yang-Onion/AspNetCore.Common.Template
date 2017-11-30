@@ -1,3 +1,4 @@
+using AspNetCore.Common.Jobs;
 using AspNetCore.Common.Services.Jobs;
 using AspNetCore.Common.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -29,7 +30,8 @@ namespace AspNetCore.Common.Web
                     .AddCommonIdentity()
                     .AddCommonMemory(Configuration)
                     .AddCommonServices()
-                    .AddCommonCoreMvc();
+                    .AddCommonCoreMvc()
+                    .AddCommonJobs(Configuration);
 
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
@@ -56,7 +58,10 @@ namespace AspNetCore.Common.Web
                     name: "default",
                     template: "{controller=Account}/{action=Login}/{id?}");
             });
-            app.UseJob();
+            //FluentScheduler
+            //app.UseJob();
+            app.UseHangfire();
+            app.UseHangfireRecurringJobs();
         }
     }
 }
