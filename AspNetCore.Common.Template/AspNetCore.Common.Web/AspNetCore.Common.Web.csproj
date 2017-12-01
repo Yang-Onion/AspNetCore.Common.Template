@@ -34,7 +34,6 @@
     <Folder Include="logs\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\font-awesome\.gitignore" />

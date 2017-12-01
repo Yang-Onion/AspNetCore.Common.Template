@@ -3,6 +3,7 @@ using AspNetCore.Common.Models.Identity;
 using AspNetCore.Common.Models.Identity.ViewModel;
 using AspNetCore.Common.Services.Interface;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -100,17 +101,17 @@ namespace AspNetCore.Common.Services.Identity.Impl
             return Task.FromResult(result);
         }
 
-        //public MenuViewModel CastMenuIdsToMenuModel(IEnumerable<string> menuIds)
-        //{
-        //    if (menuIds == null || menuIds.Count() == 0)
-        //        return new MenuViewModel();
+        public MenuViewModel CastMenuIdsToMenuModel(IEnumerable<string> menuIds)
+        {
+            if (menuIds == null || !menuIds.Any())
+                return new MenuViewModel();
 
-        //    var menus = _menuRepository
-        //      .Where(x => menuIds.Contains(x.Id.ToString()))
-        //      .ProjectTo<MenuViewModel>(_mapper.ConfigurationProvider).ToList();
+            var menus = _menuRepository
+              .Where(x => menuIds.Contains(x.Id.ToString()))
+              .ProjectTo<MenuViewModel>(_mapper.ConfigurationProvider).ToList();
 
-        //    return BuildTree(menus);
-        //}
+            return BuildTree(menus);
+        }
 
         //public MenuViewModel CastPResourceToMenu(ICollection<PResource> resource)
         //{
@@ -149,13 +150,11 @@ namespace AspNetCore.Common.Services.Identity.Impl
 
         #region 递归查找父节点
 
-        //算法有点不好理解，多看一哈
         private MenuViewModel BuildTree(IEnumerable<MenuViewModel> source)
         {
             var groups = source.GroupBy(i => i.ParentId);
 
             var root = groups.FirstOrDefault(g => g.Key.HasValue == false).First();
-            //var root = new MenuViewModel() { Id = 0, ParentId = null, Name = "Root" };
 
             var dict = groups.Where(x => x.Key.HasValue).ToDictionary(g => g.Key.Value, g => g.OrderBy(x => x.Sequence).ToList());
 
@@ -209,6 +208,7 @@ namespace AspNetCore.Common.Services.Identity.Impl
                 node.ClildMenu = new List<MenuViewModel>();
             }
         }
+
 
         #endregion 递归查找父节点
 

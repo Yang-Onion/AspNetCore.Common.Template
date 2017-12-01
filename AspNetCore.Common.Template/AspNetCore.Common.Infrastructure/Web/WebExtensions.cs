@@ -80,6 +80,7 @@ namespace AspNetCore.Common.Infrastructure.Web
             return user.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
+
         public static AppUser AsAppUser(this ClaimsPrincipal user) {
             if (user == null || user.Identity.Name == null) {
                 return null;

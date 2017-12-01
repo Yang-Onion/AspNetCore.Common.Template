@@ -16,5 +16,7 @@ namespace AspNetCore.Common.Services.Interface
         Task<Menu> GetMenuByIdAsync(int menuId);
         Task<Menu> GetMenuByNameAsync(string name);
         Task<MenuViewModel> GetRootMenusByRoleId(int roleId);
+
+        MenuViewModel CastMenuIdsToMenuModel(IEnumerable<string> menuIds);
     }
 }

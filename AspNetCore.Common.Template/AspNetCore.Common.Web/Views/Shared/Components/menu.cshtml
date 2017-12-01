@@ -1,0 +1,40 @@
+﻿@model MenuViewModel
+@{
+    var requestPath = this.CurrentPath();
+    var returnUrl = Context.Request.Query["returnUrl"].FirstOrDefault();
+}
+
+<section class="sidebar">
+    <!-- /.search form -->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header" style="color:white;font-weight:bold;">菜单栏</li>
+        @if (Model != null)
+        {
+            @foreach (var levelOne in Model.ClildMenu)
+            {
+                var isActive = levelOne.ClildMenu.Exists(x => requestPath.StartsWithSegments(x.Value) || x.Value == returnUrl || x.Value == ViewBag.ReferLink);
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>@levelOne.Name</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @foreach (var levelTwo in levelOne.ClildMenu)
+                        {
+                            isActive = levelTwo.Value == requestPath || levelTwo.Value == returnUrl || levelTwo.Value == ViewBag.ReferLink;
+                            <li @(isActive ? "class=active" : "")>
+                                <i class="fa fa-circle-o"></i>
+                                <a href="@levelTwo.Value">@levelTwo.Name</a>
+                            </li>
+                        }
+                        
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</section>
