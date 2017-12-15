@@ -37,6 +37,7 @@ namespace AspNetCore.Common.Services
             builder.AddScoped(typeof(SignInManager));
 
             builder.AddScoped(typeof(IMenu), typeof(MenuService));
+
             //builder.AddTransient<AspNetCore.Common.Rest.IThirdPartyRestProvider, AspNetCore.Common.Rest.ThirdPartyRestProvider>();
 
             //AddRoadService(builder);
