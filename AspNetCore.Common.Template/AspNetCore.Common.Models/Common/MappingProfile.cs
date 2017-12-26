@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using AspNetCore.Common.Models.Identity;
+using AspNetCore.Common.Models.Identity.ViewModel;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +16,7 @@ namespace AspNetCore.Common.Models.Common
 
         private void CreateCommonMap()
         {
-            //CreateMap<Model, ViewModel>();
+            CreateMap<Menu, MenuViewModel>();
         }
     }
 }

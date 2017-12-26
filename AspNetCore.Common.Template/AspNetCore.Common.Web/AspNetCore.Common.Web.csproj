@@ -31,6 +31,7 @@
     <ProjectReference Include="..\AspNetCore.Common.Services\AspNetCore.Common.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Common\Views\Shared\" />
     <Folder Include="logs\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Home\" />

@@ -34,6 +34,8 @@ namespace AspNetCore.Common.Web.ViewComponents
                 {
                     menuViewModel = await _menuManager.GetUserMenuAsync(User);
                     await _cache.SetAsync(cacheKey, menuViewModel, TimeSpan.FromMinutes(60));
+
+                    return View("Default", menuViewModel);
                 }
             }
             return View();
